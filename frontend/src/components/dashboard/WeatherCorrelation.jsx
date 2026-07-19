@@ -1,14 +1,22 @@
 import React from 'react'
 import { FiCloudRain, FiSun, FiDroplet, FiThermometer, FiArrowDown } from 'react-icons/fi'
 import Card from '../shared/Card'
+import StatusBadge from '../shared/StatusBadge'
 import { useApp } from '../../context/AppContext'
 
 export default function WeatherCorrelation() {
   const { selectedLocation } = useApp()
   const w = selectedLocation?.sample?.weather
 
+  const locationBadge = selectedLocation && (
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-slate-400">{selectedLocation.name}</span>
+      <StatusBadge level={selectedLocation.level} />
+    </div>
+  )
+
   return (
-    <Card title="Weather Correlation" icon={w?.isRainy ? FiCloudRain : FiSun}>
+    <Card title="Weather Correlation" icon={w?.isRainy ? FiCloudRain : FiSun} action={locationBadge}>
       <div className="grid grid-cols-3 gap-3 mb-4 text-center">
         <div className="rounded-lg bg-white/[0.03] border border-white/10 py-3">
           <FiThermometer className="mx-auto mb-1 text-signal-amber" size={16} />
