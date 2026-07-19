@@ -2,10 +2,6 @@ import React, { useMemo } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from 'recharts'
 import { FiCpu } from 'react-icons/fi'
 import Card from '../shared/Card'
-<<<<<<< HEAD
-=======
-import StatusBadge from '../shared/StatusBadge'
->>>>>>> origin/main
 import { useApp } from '../../context/AppContext'
 import { predictNextDays } from '../../utils/predict'
 
@@ -26,28 +22,16 @@ export default function PredictionPanel() {
     return history
   }, [result])
 
-<<<<<<< HEAD
-  if (!result) return (
-    <Card title="AI Outbreak Prediction" icon={FiCpu}><p className="text-sm text-slate-500">Not enough historical samples yet — move the timeline slider forward.</p></Card>
-  )
+  if (!result) {
+    return (
+      <Card title="Prediction Panel" icon={FiCpu}>
+        <p className="text-sm text-slate-500">Not enough historical samples yet — move the timeline slider forward.</p>
+      </Card>
+    )
+  }
 
   return (
-    <Card title="AI Outbreak Prediction" icon={FiCpu} className="lg:col-span-2">
-=======
-  const locationBadge = selectedLocation && (
-    <div className="flex items-center gap-2">
-      <span className="text-xs text-slate-400">{selectedLocation.name}</span>
-      <StatusBadge level={selectedLocation.level} />
-    </div>
-  )
-
-  if (!result) return (
-    <Card title="AI Outbreak Prediction" icon={FiCpu} action={locationBadge}><p className="text-sm text-slate-500">Not enough historical samples yet — move the timeline slider forward.</p></Card>
-  )
-
-  return (
-    <Card title="AI Outbreak Prediction" icon={FiCpu} action={locationBadge} className="lg:col-span-2">
->>>>>>> origin/main
+    <Card title="Prediction Panel" icon={FiCpu}>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
         <MiniStat label="Today's Risk" value={`${result.todayScore}/100`} color="#38bdf8" />
         <MiniStat label="Expected Peak" value={`${result.expectedPeak.score}/100`} sub={`day +${result.expectedPeak.dayOffset}`} color="#f5b942" />
@@ -87,8 +71,4 @@ function MiniStat({ label, value, sub, color }) {
       {sub && <p className="text-[10px] text-slate-500">{sub}</p>}
     </div>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/main

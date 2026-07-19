@@ -1,25 +1,12 @@
 import React from 'react'
-<<<<<<< HEAD
 import { FiServer, FiMapPin } from 'react-icons/fi'
 import Card from '../shared/Card'
 import { useApp } from '../../context/AppContext'
 
 const PHASES = [
-  {
-    name: 'Phase 1 — Pilot',
-    timeline: '4–6 weeks',
-    detail: "3–4 hostel sewage access points, manual grab sampling every 24h, tested via a partner lab or IIT Mandi's own Environmental/Civil Engineering lab. Validates whether readings correlate with any real health center reports before further investment."
-  },
-  {
-    name: 'Phase 2 — Expand Coverage',
-    timeline: '2–3 months',
-    detail: 'Extend to all 18 hostel blocks + mess halls (highest-risk categories). Sampling frequency increases to twice-daily only for buildings crossing the "Monitor" threshold, keeping cost manageable elsewhere.'
-  },
-  {
-    name: 'Phase 3 — Automate High-Priority Points',
-    timeline: 'Longer-term, budget-dependent',
-    detail: 'Automated composite samplers at highest-traffic clusters; low-cost qPCR pathogen screening explored only once Phase 1–2 prove the signal is actionable.'
-  }
+  { name: 'Phase 1 — Pilot', timeline: '4–6 weeks', detail: "3–4 hostel sewage access points, manual grab sampling every 24h, tested via a partner lab or IIT Mandi's own Environmental/Civil Engineering lab. Validates whether readings correlate with any real health center reports before further investment." },
+  { name: 'Phase 2 — Expand Coverage', timeline: '2–3 months', detail: 'Extend to all 18 hostel blocks + mess halls (highest-risk categories). Sampling frequency increases to twice-daily only for buildings crossing the "Monitor" threshold, keeping cost manageable elsewhere.' },
+  { name: 'Phase 3 — Automate High-Priority Points', timeline: 'Longer-term, budget-dependent', detail: 'Automated composite samplers at highest-traffic clusters; low-cost qPCR pathogen screening explored only once Phase 1–2 prove the signal is actionable.' }
 ]
 
 const COST_DRIVERS = [
@@ -81,32 +68,3 @@ export default function DeploymentView() {
     </Card>
   )
 }
-=======
-import { FiServer } from 'react-icons/fi'
-import Card from '../shared/Card'
-import { useApp } from '../../context/AppContext'
-
-export default function DeploymentView() {
-  const { scoredLocations, timelineDates, dayIndex } = useApp()
-  const rows = [
-    { label: 'Last Updated', value: `${timelineDates[dayIndex]}, ${new Date().toLocaleTimeString()}` },
-    { label: 'Sampling Frequency', value: 'Every 24 hours (6h during red alerts)' },
-    { label: 'Coverage', value: `${scoredLocations.length} of 37 real campus locations` },
-    { label: 'Data Accuracy', value: '96.4% (simulated benchmark)' },
-    { label: 'Prediction Accuracy', value: '89.1% (7-day backtest, simulated)' },
-    { label: 'System Status', value: 'Operational', good: true }
-  ]
-  return (
-    <Card title="Deployment View" icon={FiServer}>
-      <div className="space-y-2">
-        {rows.map(r => (
-          <div key={r.label} className="flex items-center justify-between text-sm">
-            <span className="text-slate-500">{r.label}</span>
-            <span className={r.good ? 'text-signal-green font-medium' : 'text-slate-200'}>{r.value}</span>
-          </div>
-        ))}
-      </div>
-    </Card>
-  )
-}
->>>>>>> origin/main
