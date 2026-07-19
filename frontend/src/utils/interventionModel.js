@@ -40,7 +40,10 @@ export function simulateIntervention(series, interventionDay = 2, days = 7) {
 
   const noActionPeak = Math.max(...noAction.map(p => p.score))
   const interventionPeak = Math.max(...withIntervention.map(p => p.score))
-  const peakAvoided = Math.max(0, noActionPeak - interventionPeak)
+
+  const finalNoAction = noAction[noAction.length - 1].score
+  const finalIntervention = withIntervention[withIntervention.length - 1].score
+  const riskReducedByEnd = Math.max(0, finalNoAction - finalIntervention)
 
   const daysToNormalNoAction = noAction.find(p => p.score < 28)?.dayOffset ?? null
   const daysToNormalIntervention = withIntervention.find(p => p.score < 28)?.dayOffset ?? null
@@ -50,7 +53,9 @@ export function simulateIntervention(series, interventionDay = 2, days = 7) {
     withIntervention,
     noActionPeak,
     interventionPeak,
-    peakAvoided,
+    riskReducedByEnd,
+    finalNoAction,
+    finalIntervention,
     daysToNormalNoAction,
     daysToNormalIntervention
   }

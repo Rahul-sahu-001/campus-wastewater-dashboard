@@ -55,8 +55,8 @@ export default function InterventionSimulator() {
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="rounded-lg bg-white/[0.03] border border-white/10 px-3 py-2.5">
-          <p className="text-[10px] uppercase tracking-wide text-slate-500">Peak Risk Avoided</p>
-          <p className="font-display text-lg font-semibold text-signal-green">{result.peakAvoided} pts</p>
+          <p className="text-[10px] uppercase tracking-wide text-slate-500">Risk Reduced by Day +7</p>
+          <p className="font-display text-lg font-semibold text-signal-green">{result.riskReducedByEnd} pts</p>
         </div>
         <div className="rounded-lg bg-white/[0.03] border border-white/10 px-3 py-2.5">
           <p className="text-[10px] uppercase tracking-wide text-slate-500">Days to Normal (int. vs none)</p>
