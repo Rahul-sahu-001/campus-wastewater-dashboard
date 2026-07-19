@@ -1,5 +1,9 @@
 import React from 'react'
+<<<<<<< HEAD
 import { FiShield, FiAlertCircle } from 'react-icons/fi'
+=======
+import { FiShield } from 'react-icons/fi'
+>>>>>>> origin/main
 import Card from '../shared/Card'
 
 const ROWS = [
@@ -9,6 +13,7 @@ const ROWS = [
   { label: 'Anonymous Pooled Samples', value: 'Yes', good: true }
 ]
 
+<<<<<<< HEAD
 const ETHICS_POINTS = [
   {
     title: 'Data Retention',
@@ -32,6 +37,8 @@ const ETHICS_POINTS = [
   }
 ]
 
+=======
+>>>>>>> origin/main
 export default function PrivacyDashboard() {
   return (
     <Card title="Privacy Dashboard" icon={FiShield}>
@@ -43,6 +50,7 @@ export default function PrivacyDashboard() {
           </div>
         ))}
       </div>
+<<<<<<< HEAD
       <p className="text-xs text-slate-500 leading-relaxed mb-4">
         Wastewater surveillance tests pooled sewage from an entire building, never an individual. No student is identified, followed, or profiled — the system detects building-level trends only, the same principle public health agencies used during COVID-19 wastewater monitoring.
       </p>
@@ -61,3 +69,11 @@ export default function PrivacyDashboard() {
     </Card>
   )
 }
+=======
+      <p className="text-xs text-slate-500 leading-relaxed">
+        Wastewater surveillance tests pooled sewage from an entire building, never an individual. No student is identified, followed, or profiled — the system detects building-level trends only, the same principle public health agencies used during COVID-19 wastewater monitoring.
+      </p>
+    </Card>
+  )
+}
+>>>>>>> origin/main

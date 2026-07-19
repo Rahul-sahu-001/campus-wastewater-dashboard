@@ -1,5 +1,20 @@
 import { predictNextDays } from './predict'
 
+<<<<<<< HEAD
+=======
+/**
+ * Given a location's historical sample series, projects two outcomes:
+ *  - "No action": the existing trend-based prediction (predictNextDays)
+ *  - "Early intervention": follows the same trajectory until
+ *    `interventionDay`, after which risk score decays toward a safe
+ *    baseline — modeling the effect of isolation, increased chlorination,
+ *    and targeted follow-up sampling once an alert is acted on.
+ *
+ * This is a simplified, explainable illustrative model (not a full
+ * epidemiological simulation) whose purpose is to visualize WHY early
+ * detection — wastewater surveillance's core value proposition — matters.
+ */
+>>>>>>> origin/main
 export function simulateIntervention(series, interventionDay = 2, days = 7) {
   const base = predictNextDays(series, days)
   const noAction = [
@@ -7,7 +22,11 @@ export function simulateIntervention(series, interventionDay = 2, days = 7) {
     ...base.predictions.map(p => ({ dayOffset: p.dayOffset, score: p.predictedScore }))
   ]
 
+<<<<<<< HEAD
   const DECAY_RATE = 0.22
+=======
+  const DECAY_RATE = 0.22 // ~22% reduction per day toward baseline once intervention kicks in
+>>>>>>> origin/main
   const SAFE_BASELINE = 15
 
   const withIntervention = []
@@ -28,6 +47,7 @@ export function simulateIntervention(series, interventionDay = 2, days = 7) {
 
   const noActionPeak = Math.max(...noAction.map(p => p.score))
   const interventionPeak = Math.max(...withIntervention.map(p => p.score))
+<<<<<<< HEAD
   const finalNoAction = noAction[noAction.length - 1].score
   const finalIntervention = withIntervention[withIntervention.length - 1].score
   const riskReducedByEnd = Math.max(0, finalNoAction - finalIntervention)
@@ -35,4 +55,25 @@ export function simulateIntervention(series, interventionDay = 2, days = 7) {
   const daysToNormalIntervention = withIntervention.find(p => p.score < 28)?.dayOffset ?? null
 
   return { noAction, withIntervention, noActionPeak, interventionPeak, riskReducedByEnd, finalNoAction, finalIntervention, daysToNormalNoAction, daysToNormalIntervention }
+=======
+
+  const finalNoAction = noAction[noAction.length - 1].score
+  const finalIntervention = withIntervention[withIntervention.length - 1].score
+  const riskReducedByEnd = Math.max(0, finalNoAction - finalIntervention)
+
+  const daysToNormalNoAction = noAction.find(p => p.score < 28)?.dayOffset ?? null
+  const daysToNormalIntervention = withIntervention.find(p => p.score < 28)?.dayOffset ?? null
+
+  return {
+    noAction,
+    withIntervention,
+    noActionPeak,
+    interventionPeak,
+    riskReducedByEnd,
+    finalNoAction,
+    finalIntervention,
+    daysToNormalNoAction,
+    daysToNormalIntervention
+  }
+>>>>>>> origin/main
 }
