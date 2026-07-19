@@ -45,13 +45,6 @@ export default function InterventionSimulator() {
       <div className="flex items-center gap-3 mb-4">
         <span className="text-xs text-slate-400 whitespace-nowrap">Start intervention on day</span>
         <input type="range" min={0} max={5} step={1} value={interventionDay} onChange={e => setInterventionDay(Number(e.target.value))} className="flex-1 accent-signal-green" />
-        <input
-          type="range" min={0} max={5} step={1}
-          value={interventionDay}
-          onChange={e => setInterventionDay(Number(e.target.value))}
-          className="flex-1 accent-signal-green"
-        />
-
         <span className="text-xs font-semibold text-signal-green w-14 text-right">+{interventionDay}d</span>
       </div>
 
