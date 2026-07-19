@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { FiShield, FiAlertCircle } from 'react-icons/fi'
 import Card from '../shared/Card'
 
 const ROWS = [
@@ -31,6 +31,7 @@ const ETHICS_POINTS = [
     body: "Any real deployment collecting health-adjacent data on campus should go through IIT Mandi's institutional ethics review before rollout, the same way human-subjects-adjacent research would."
   }
 ]
+
 export default function PrivacyDashboard() {
   return (
     <Card title="Privacy Dashboard" icon={FiShield}>

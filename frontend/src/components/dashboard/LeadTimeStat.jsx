@@ -14,19 +14,11 @@ export default function LeadTimeStat() {
         <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
           <p className="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Traditional Detection</p>
           <p className="font-display text-2xl font-semibold text-slate-300">Symptom-based</p>
-=======
-          <p className="font-display text-2xl font-semibold text-signal-green">2–3 days</p>
-          <p className="text-xs text-slate-400 mt-1">before symptomatic cases typically appear — infected individuals shed viral RNA in stool before showing symptoms.</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
-          <p className="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Traditional Detection</p>
-          <p className="font-display text-2xl font-semibold text-slate-300">5–7 days</p>
-origin/main
           <p className="text-xs text-slate-400 mt-1">relying on symptom onset, self-reporting to the health center, and diagnostic confirmation.</p>
         </div>
       </div>
       <p className="text-[11px] text-slate-600 mt-3">
-
+        Based on published COVID-19 wastewater-based epidemiology studies: lead times of 0–11 days (avg. ~6 days) in community surveillance, and 2–8 days without active clinical case-finding. See README §10 for full references.
       </p>
     </Card>
   )
