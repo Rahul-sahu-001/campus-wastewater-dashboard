@@ -8,6 +8,7 @@ import Navbar from '../components/shared/Navbar'
 import TabNav from '../components/shared/TabNav'
 
 import OverviewCards from '../components/dashboard/OverviewCards'
+import LeadTimeStat from '../components/dashboard/LeadTimeStat'
 import CampusMap from '../components/dashboard/CampusMap'
 import ExplainableAlert from '../components/dashboard/ExplainableAlert'
 import PredictionPanel from '../components/dashboard/PredictionPanel'
@@ -54,6 +55,7 @@ export default function Dashboard() {
           {activeTab === 'overview' && (
             <motion.div key="overview" {...fadeProps()} className="space-y-6">
               <OverviewCards />
+              <LeadTimeStat />
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 <ExplainableAlert />
                 <HealthIndexGauge />

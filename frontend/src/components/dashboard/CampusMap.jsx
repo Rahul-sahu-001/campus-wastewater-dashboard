@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiX, FiSearch } from 'react-icons/fi'
+import { FiX, FiSearch, FiDownload } from 'react-icons/fi'
 import Card from '../shared/Card'
 import StatusBadge from '../shared/StatusBadge'
 import { useApp } from '../../context/AppContext'
@@ -13,6 +13,38 @@ export default function CampusMap() {
   const visibleIds = new Set(filteredLocations.map(l => l.id))
   const selected = scoredLocations.find(l => l.id === selectedLocationId)
   const spreadRisk = selected ? getSpreadPattern(selected, scoredLocations) : []
+
+  const downloadBuildingReport = () => {
+    if (!selected || !selected.sample) return
+    const lines = [
+      `CAMPUS WASTEWATER HEALTH REPORT`,
+      `Building: ${selected.name} (${selected.category})`,
+      `Date: ${selected.sample.date}`,
+      `Status: ${LEVEL_META[selected.level].label} (risk score ${selected.score}/100, confidence ${selected.confidence}%)`,
+      '',
+      'READINGS',
+      `  pH: ${selected.sample.ph}`,
+      `  Viral Load: ${selected.sample.viralLoad}`,
+      `  Bacterial Load: ${selected.sample.bacterialLoad} CFU/100mL`,
+      `  Turbidity: ${selected.sample.turbidity} NTU`,
+      `  Antibiotic Residue: ${selected.sample.antibioticResidue} mg/L`,
+      '',
+      'REASONS',
+      ...selected.reasons.map(r => `  - ${r}`),
+      '',
+      'RECOMMENDED ACTION',
+      ...recommendationFor(selected.level, selected.reasons).map(r => `  - ${r}`)
+    ]
+    if (spreadRisk.length > 0) {
+      lines.push('', 'NEARBY LOCATIONS AT RISK (possible shared drainage / foot-traffic pathway)')
+      spreadRisk.forEach(l => lines.push(`  - ${l.name}: risk ${l.score}/100, proximity ${(100 - (l.distance / 14) * 100).toFixed(0)}%`))
+    }
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url; a.download = `${selected.id}-report-${selected.sample.date}.txt`; a.click()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <Card title="Interactive Campus Heatmap" className="lg:col-span-2">
@@ -122,6 +154,7 @@ export default function CampusMap() {
               </div>
               <div className="flex items-center gap-2">
                 <StatusBadge level={selected.level} />
+                <button onClick={downloadBuildingReport} title="Download report" className="text-slate-500 hover:text-signal-green transition-colors"><FiDownload size={16} /></button>
                 <button onClick={() => setSelectedLocationId(null)} className="text-slate-500 hover:text-slate-300"><FiX size={16} /></button>
               </div>
             </div>
