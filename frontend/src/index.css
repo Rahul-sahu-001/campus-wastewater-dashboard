@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --chart-tick: #94a3b8;
+  --gauge-track: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #070d0c;
+  color: #e2e8f0;
+  font-family: theme('fontFamily.body');
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(45,212,167,0.35); border-radius: 999px; }
+
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.gradient-border { position: relative; }
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(45,212,167,0.5), rgba(56,189,248,0.15), rgba(245,185,66,0.35));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 37%, rgba(255,255,255,0.03) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  opacity: 0.55;
+  animation: pulse-ring 1.8s cubic-bezier(0.2,0.6,0.4,1) infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.7); opacity: 0.6; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* =========================================================================
+   LIGHT THEME
+   Dark mode is the default look (dark backgrounds + light text on translucent
+   "glass" panels). Rather than re-theme every component by hand, we flip the
+   same utility classes here, scoped to body.light-mode, so every card,
+   border, and text tone gets a real light-appropriate value instead of just
+   the page background changing underneath unreadable light-on-light text.
+   ========================================================================= */
+
+body.light-mode {
+  --chart-tick: #475569;
+  --gauge-track: rgba(15, 23, 42, 0.08);
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+body.light-mode .glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.72));
+  border: 1px solid rgba(15,23,42,0.09);
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04);
+}
+
+body.light-mode ::-webkit-scrollbar-thumb { background: rgba(45,212,167,0.45); }
+
+/* Text tones: dark theme uses light greys on dark bg — invert to dark greys on light bg */
+body.light-mode .text-slate-50,
+body.light-mode .text-slate-100,
+body.light-mode .text-slate-200 { color: #0f172a; }
+body.light-mode .text-slate-300 { color: #1e293b; }
+body.light-mode .text-slate-400 { color: #475569; }
+body.light-mode .text-slate-500 { color: #64748b; }
+body.light-mode .text-slate-600 { color: #64748b; }
+body.light-mode .text-slate-700,
+body.light-mode .text-slate-800 { color: #1e293b; }
+
+body.light-mode .placeholder\:text-slate-500::placeholder { color: #94a3b8; }
+
+/* Translucent white surfaces (cards, chips, inputs) → translucent dark surfaces on light bg */
+body.light-mode .bg-white\/5 { background-color: rgba(15,23,42,0.045) !important; }
+body.light-mode .bg-white\/10 { background-color: rgba(15,23,42,0.06) !important; }
+body.light-mode .bg-white\/15 { background-color: rgba(15,23,42,0.09) !important; }
+body.light-mode .bg-white\/\[0\.02\] { background-color: rgba(15,23,42,0.035) !important; }
+body.light-mode .bg-white\/\[0\.03\] { background-color: rgba(15,23,42,0.045) !important; }
+body.light-mode .bg-white\/\[0\.05\] { background-color: rgba(15,23,42,0.06) !important; }
+
+body.light-mode .border-white\/5 { border-color: rgba(15,23,42,0.06) !important; }
+body.light-mode .border-white\/10 { border-color: rgba(15,23,42,0.1) !important; }
+body.light-mode .border-white\/15 { border-color: rgba(15,23,42,0.14) !important; }
+body.light-mode .border-white\/25 { border-color: rgba(15,23,42,0.2) !important; }
+
+body.light-mode .bg-base-950,
+body.light-mode .bg-base-950\/70 { background-color: rgba(255,255,255,0.75) !important; }
+
+/* Accent badges/chips: keep the hue but calm the tint so it reads on white instead of glowing */
+body.light-mode .bg-signal-green\/10 { background-color: rgba(16,150,116,0.08) !important; }
+body.light-mode .bg-signal-green\/15 { background-color: rgba(16,150,116,0.12) !important; }
+body.light-mode .bg-signal-green\/20 { background-color: rgba(16,150,116,0.14) !important; }
+body.light-mode .bg-signal-cyan\/10 { background-color: rgba(2,132,199,0.08) !important; }
+body.light-mode .bg-signal-cyan\/20 { background-color: rgba(2,132,199,0.12) !important; }
+body.light-mode .bg-signal-amber\/15 { background-color: rgba(180,131,13,0.12) !important; }
+body.light-mode .bg-signal-amber\/25 { background-color: rgba(180,131,13,0.16) !important; }
+body.light-mode .bg-signal-red\/5 { background-color: rgba(220,38,38,0.05) !important; }
+body.light-mode .bg-signal-red\/15 { background-color: rgba(220,38,38,0.1) !important; }
+
+body.light-mode .text-signal-green { color: #0d9668; }
+body.light-mode .text-signal-cyan { color: #0284c7; }
+body.light-mode .text-signal-amber { color: #b4830d; }
+body.light-mode .text-signal-red { color: #dc2626; }
+
+body.light-mode .shadow-glow { box-shadow: 0 0 0 1px rgba(16,150,116,0.15), 0 8px 24px -10px rgba(16,150,116,0.2); }
+body.light-mode .shadow-glowRed { box-shadow: 0 0 0 1px rgba(220,38,38,0.18), 0 8px 24px -10px rgba(220,38,38,0.25); }
+
+/* Landing hero ambient glows are tuned for a dark canvas — dim them on light */
+body.light-mode .bg-grid-fade { opacity: 0.5; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+}
