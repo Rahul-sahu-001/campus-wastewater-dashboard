@@ -5,12 +5,14 @@ import Card from '../shared/Card'
 import StatusBadge from '../shared/StatusBadge'
 import { useApp } from '../../context/AppContext'
 import { LEVEL_META, recommendationFor } from '../../utils/risk'
+import { getSpreadPattern } from '../../utils/correlation'
 
 export default function CampusMap() {
   const { scoredLocations, filteredLocations, search, setSearch, riskFilter, setRiskFilter, selectedLocationId, setSelectedLocationId } = useApp()
   const [hovered, setHovered] = useState(null)
   const visibleIds = new Set(filteredLocations.map(l => l.id))
   const selected = scoredLocations.find(l => l.id === selectedLocationId)
+  const spreadRisk = selected ? getSpreadPattern(selected, scoredLocations) : []
 
   return (
     <Card title="Interactive Campus Heatmap" className="lg:col-span-2">
@@ -38,6 +40,28 @@ export default function CampusMap() {
 
       <div className="relative w-full rounded-xl overflow-hidden border border-white/10">
         <img src="/campus-map.jpg" alt="Real campus map" className="w-full block select-none" draggable={false} />
+
+        {selected && spreadRisk.length > 0 && (
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            {spreadRisk.map(loc => (
+              <motion.line
+                key={loc.id}
+                x1={selected.x} y1={selected.y}
+                x2={loc.x} y2={loc.y}
+                stroke={LEVEL_META[loc.level].color}
+                strokeWidth={0.35}
+                strokeDasharray="1.5 1.2"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.6 }}
+                transition={{ duration: 0.6 }}
+              />
+            ))}
+          </svg>
+        )}
 
         {scoredLocations.map(loc => {
           const meta = LEVEL_META[loc.level]
@@ -117,6 +141,27 @@ export default function CampusMap() {
                 {recommendationFor(selected.level, selected.reasons).slice(0, 3).map((r, i) => <li key={i}>• {r}</li>)}
               </ul>
             </div>
+
+            {spreadRisk.length > 0 && (
+              <div className="mt-3 pt-3 border-t border-white/10">
+                <p className="text-xs uppercase tracking-wide text-slate-500 mb-1.5">
+                  Nearby Locations at Risk <span className="normal-case text-slate-600">(possible shared drainage / foot-traffic pathway)</span>
+                </p>
+                <ul className="text-sm text-slate-300 space-y-1.5">
+                  {spreadRisk.map(loc => (
+                    <li key={loc.id} className="flex items-center justify-between gap-3">
+                      <span className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: LEVEL_META[loc.level].color }} />
+                        {loc.name}
+                      </span>
+                      <span className="text-xs text-slate-500 shrink-0">
+                        risk {loc.score}/100 · proximity {(100 - (loc.distance / 14) * 100).toFixed(0)}%
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
