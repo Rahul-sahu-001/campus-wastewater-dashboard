@@ -11,6 +11,7 @@ import OverviewCards from '../components/dashboard/OverviewCards'
 import CampusMap from '../components/dashboard/CampusMap'
 import ExplainableAlert from '../components/dashboard/ExplainableAlert'
 import PredictionPanel from '../components/dashboard/PredictionPanel'
+import InterventionSimulator from '../components/dashboard/InterventionSimulator'
 import DiseasePanel from '../components/dashboard/DiseasePanel'
 import HealthIndexGauge from '../components/dashboard/HealthIndexGauge'
 import HistoricalTimeline from '../components/dashboard/HistoricalTimeline'
@@ -75,6 +76,7 @@ export default function Dashboard() {
                 <DiseasePanel />
                 <WeatherCorrelation />
               </div>
+              <InterventionSimulator />
             </motion.div>
           )}
 
